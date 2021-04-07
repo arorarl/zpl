@@ -255,6 +255,9 @@ class Label:
         assert barcode_type in '23AQUCEX', "invalid barcode type"
         
         if barcode_type == 'X':
+            assert orientation in ['N','R','I','B']
+            assert height <= self.width
+            assert quality_level in [0,50,80,100,140,200,'0','50','80','100','140','200']
             barcode_zpl = '^B%s%s,%i,%s' % (barcode_type, orientation, height,
                                             quality_level)
 
