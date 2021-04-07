@@ -247,11 +247,16 @@ class Label:
 
     def write_barcode(self, height, barcode_type, orientation='N', check_digit='N',
                        print_interpretation_line='Y', print_interpretation_line_above='N',
-                       magnification=1, errorCorrection='Q', mask='7', mode='N'):
+                       magnification=1, errorCorrection='Q', mask='7', mode='N',
+                       quality_level='50'):
         # TODO split into multiple functions?
         # TODO support all ^B barcode types
         # guard for only currently allowed bar codes
-        assert barcode_type in '23AQUCE', "invalid barcode type"
+        assert barcode_type in '23AQUCEX', "invalid barcode type"
+        
+        if barcode_type == 'X':
+            barcode_zpl = '^B%s%s,%i,%s' % (barcode_type, orientation, height,
+                                            quality_level)
 
         if barcode_type in '2A':
             barcode_zpl = '^B%s%s,%i,%s,%s,%s' % (barcode_type, orientation, height,
