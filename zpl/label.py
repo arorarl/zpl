@@ -258,7 +258,7 @@ class Label:
             barcode_zpl = '^B%s%s,%i,%s' % (barcode_type, orientation, height,
                                             quality_level)
 
-        if barcode_type in '2A':
+        elif barcode_type in '2A':
             barcode_zpl = '^B%s%s,%i,%s,%s,%s' % (barcode_type, orientation, height,
                                                   print_interpretation_line,
                                                   print_interpretation_line_above,
