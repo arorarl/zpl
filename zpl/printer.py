@@ -241,7 +241,7 @@ class TCPPrinter(Printer):
             log.error('Send timeout')
             raise
         except:
-            log.exception()
+            log.exception("Possibly a socket error in sending job")
             raise
         finally:
             log.debug('Send finished')
@@ -262,7 +262,7 @@ class TCPPrinter(Printer):
             log.error('Send timeout')
             raise
         except:
-            log.exception()
+            log.exception("Possibly a socket error in requesting info")
             raise
         finally:
             log.debug('Request finished')
