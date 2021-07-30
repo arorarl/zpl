@@ -96,7 +96,11 @@ class Label:
             assert justification in "LCRJ", "invalid justification"
             self.code += "^FB%i,%i,%i,%c,%i" % (line_width*self.dpmm, max_line, line_spaces,
                                                 justification, hanging_indent)
-        self.code += "^FD%s" % text
+        if self._qr_code_error_correction:
+            self.code += "^FD%sA,%s" % (self._qr_code_error_correction, text)
+            self._qr_code_error_correction = None
+        else:
+            self.code += "^FD%s" % text
 
     def set_default_font(self, height, width, font='0'):
         """
@@ -283,6 +287,7 @@ class Label:
                 'QR Code mask may be 1 - 7.'
             barcode_zpl = '^B%s%s,%s,%s,%s,%s' % (barcode_type, orientation,
                                                   model, magnification, errorCorrection, mask)
+            self._qr_code_error_correction = errorCorrection
         elif barcode_type == 'U':
             barcode_zpl = '^B%s%s,%s,%s,%s,%s' % (barcode_type, orientation, height,
                                                   print_interpretation_line,
